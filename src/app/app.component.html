@@ -1,0 +1,29 @@
+<div class="bg-white">
+  <div class="max-w-7xl mx-auto pt-8 px-4 sm:px-6 lg:px-8">
+    <div class="sm:flex sm:flex-col sm:align-center">
+      <h1 class="text-4xl font-extrabold text-gray-900 sm:text-center">ABI to Solidity Interface</h1>
+    </div>
+    <div class="mt-12 space-y-4 sm:mt-16 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-6 lg:max-w-6xl lg:mx-auto xl:max-w-none xl:mx-0 xl:grid-cols-2">
+      <div class="border border-gray-200 rounded-lg shadow-sm divide-y divide-gray-200 p-3">
+        <div class="col-span-3">
+          <label for="about" class="block text-sm font-medium text-gray-700"> ABI : </label>
+          <div class="mt-1">
+            <textarea id="abi" name="abi" [formControl]="inputAbi" rows="16" style="resize: none !important;" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md" placeholder="Put your smartcontract ABI here.."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="border border-gray-200 rounded-lg shadow-sm divide-y divide-gray-200 p-3">
+        <div class="col-span-3">
+          <label for="about" class="block text-sm font-medium text-gray-700"> Result : </label>
+          <div class="mt-1">
+            <textarea id="result" name="result" [formControl]="interfaceResult" rows="16" style="resize: none !important;" readonly class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md" placeholder="Result of convertion will appear here.."></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-4 space-y-4 sm:mt-6 sm:space-y-0 sm:gap-6 lg:max-w-6xl lg:mx-auto xl:max-w-none xl:mx-0 xl:grid-cols-2">
+      <button (click)="convert()" class="w-full block bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Convert</button>
+    </div>
+  </div>
+</div>
