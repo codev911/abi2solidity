@@ -17,8 +17,7 @@ export class AppComponent {
       let converted = `// SPDX-License-Identifier: none
 
 pragma solidity ^0.8.0;
-
-interface generatedInterface{`;
+`;
 
       try{
         data = JSON.parse(this.inputAbi.value);
@@ -27,141 +26,144 @@ interface generatedInterface{`;
       }
       
       if(correctJson){
+        let generatedInterface = `
+interface generatedInterface{`
         for(let a = 0; a < data.length; a++){
           if(data[a].type === 'function'){
             console.log(data[a])
             if(data[a].stateMutability === 'view'){
-              converted = converted + `
+              generatedInterface = generatedInterface +  `
   function ` + data[a].name + "( ";
               for(let b = 0; b < data[a].inputs.length; b++){
                 if(data[a].inputs[b].name !== "" ){
-                  converted = converted + data[a].inputs[b].type + " " + data[a].inputs[b].name + " , ";
+                  generatedInterface = generatedInterface+ data[a].inputs[b].type + " " + data[a].inputs[b].name + " , ";
                 }else{
-                  converted = converted + data[a].inputs[b].type + " , ";
+                  generatedInterface = generatedInterface+ data[a].inputs[b].type + " , ";
                 }
               }
-              const endChar = converted.slice(-3);
+              const endChar = generatedInterface.slice(-3);
               if(endChar === " , " ){
-                converted = converted.substring(0, converted.length - 3) + " ) external view returns( ";
+                generatedInterface = generatedInterface.substring(0, generatedInterface.length - 3) + " ) external view returns( ";
               }else{
-                converted = converted + " ) external view returns( ";
+                generatedInterface = generatedInterface +  " ) external view returns( ";
               }
               for(let c = 0; c < data[a].outputs.length; c++){
                 if(data[a].outputs[c].name !== "" ){
-                  converted = converted + data[a].outputs[c].type + " " + data[a].outputs[c].name + " , ";
+                  generatedInterface = generatedInterface + data[a].outputs[c].type + " " + data[a].outputs[c].name + " , ";
                 }else{
-                  converted = converted + data[a].outputs[c].type + " , ";
+                  generatedInterface = generatedInterface + data[a].outputs[c].type + " , ";
                 }
               }
-              const endChar2 = converted.slice(-3);
+              const endChar2 = generatedInterface.slice(-3);
               if(endChar2 === " , " ){
-                converted = converted.substring(0, converted.length - 3) + " );";
+                generatedInterface = generatedInterface.substring(0, generatedInterface.length - 3) + " );";
               }else{
-                converted = converted + " );";
+                generatedInterface = generatedInterface +  " );";
               }
             }
             if(data[a].stateMutability === 'pure'){
-              converted = converted + `
+              generatedInterface = generatedInterface +  `
   function ` + data[a].name + "( ";
               for(let b = 0; b < data[a].inputs.length; b++){
                 if(data[a].inputs[b].name !== "" ){
-                  converted = converted + data[a].inputs[b].type + " " + data[a].inputs[b].name + " , ";
+                  generatedInterface = generatedInterface+ data[a].inputs[b].type + " " + data[a].inputs[b].name + " , ";
                 }else{
-                  converted = converted + data[a].inputs[b].type + " , ";
+                  generatedInterface = generatedInterface+ data[a].inputs[b].type + " , ";
                 }
               }
-              const endChar = converted.slice(-3);
+              const endChar = generatedInterface.slice(-3);
               if(endChar === " , " ){
-                converted = converted.substring(0, converted.length - 3) + " ) external pure returns( ";
+                generatedInterface = generatedInterface.substring(0, generatedInterface.length - 3) + " ) external pure returns( ";
               }else{
-                converted = converted + " ) external view returns( ";
+                generatedInterface = generatedInterface +  " ) external view returns( ";
               }
               for(let c = 0; c < data[a].outputs.length; c++){
                 if(data[a].outputs[c].name !== "" ){
-                  converted = converted + data[a].outputs[c].type + " " + data[a].outputs[c].name + " , ";
+                  generatedInterface = generatedInterface + data[a].outputs[c].type + " " + data[a].outputs[c].name + " , ";
                 }else{
-                  converted = converted + data[a].outputs[c].type + " , ";
+                  generatedInterface = generatedInterface + data[a].outputs[c].type + " , ";
                 }
               }
-              const endChar2 = converted.slice(-3);
+              const endChar2 = generatedInterface.slice(-3);
               if(endChar2 === " , " ){
-                converted = converted.substring(0, converted.length - 3) + " );";
+                generatedInterface = generatedInterface.substring(0, generatedInterface.length - 3) + " );";
               }else{
-                converted = converted + " );";
+                generatedInterface = generatedInterface +  " );";
               }
             }
             if(data[a].stateMutability === 'nonpayable'){
-              converted = converted + `
+              generatedInterface = generatedInterface +  `
   function ` + data[a].name + "( ";
               for(let b = 0; b < data[a].inputs.length; b++){
                 if(data[a].inputs[b].name !== "" ){
-                  converted = converted + data[a].inputs[b].type + " " + data[a].inputs[b].name + " , ";
+                  generatedInterface = generatedInterface+ data[a].inputs[b].type + " " + data[a].inputs[b].name + " , ";
                 }else{
-                  converted = converted + data[a].inputs[b].type + " , ";
+                  generatedInterface = generatedInterface+ data[a].inputs[b].type + " , ";
                 }
               }
-              const endChar = converted.slice(-3);
+              const endChar = generatedInterface.slice(-3);
               if(endChar === " , " ){
-                converted = converted.substring(0, converted.length - 3) + " ) external";
+                generatedInterface = generatedInterface.substring(0, generatedInterface.length - 3) + " ) external";
               }else{
-                converted = converted + " ) external";
+                generatedInterface = generatedInterface +  " ) external";
               }
               if(data[a].outputs.length > 0){
-                converted = converted + " returns( ";
+                generatedInterface = generatedInterface +  " returns( ";
                 for(let c = 0; c < data[a].outputs.length; c++){
                   if(data[a].outputs[c].name !== "" ){
-                    converted = converted + data[a].outputs[c].type + " " + data[a].outputs[c].name + " , ";
+                    generatedInterface = generatedInterface + data[a].outputs[c].type + " " + data[a].outputs[c].name + " , ";
                   }else{
-                    converted = converted + data[a].outputs[c].type + " , ";
+                    generatedInterface = generatedInterface + data[a].outputs[c].type + " , ";
                   }
                 }
-                const endChar2 = converted.slice(-3);
+                const endChar2 = generatedInterface.slice(-3);
                 if(endChar2 === " , " ){
-                  converted = converted.substring(0, converted.length - 3) + " )";
+                  generatedInterface = generatedInterface.substring(0, generatedInterface.length - 3) + " )";
                 }else{
-                  converted = converted + " )";
+                  generatedInterface = generatedInterface +  " )";
                 }
               }
-              converted = converted + ";";
+              generatedInterface = generatedInterface +  ";";
             }
             if(data[a].stateMutability === 'payable'){
-              converted = converted + `
+              generatedInterface = generatedInterface +  `
   function ` + data[a].name + "( ";
               for(let b = 0; b < data[a].inputs.length; b++){
                 if(data[a].inputs[b].name !== "" ){
-                  converted = converted + data[a].inputs[b].type + " " + data[a].inputs[b].name + " , ";
+                  generatedInterface = generatedInterface+ data[a].inputs[b].type + " " + data[a].inputs[b].name + " , ";
                 }else{
-                  converted = converted + data[a].inputs[b].type + " , ";
+                  generatedInterface = generatedInterface+ data[a].inputs[b].type + " , ";
                 }
               }
-              const endChar = converted.slice(-3);
+              const endChar = generatedInterface.slice(-3);
               if(endChar === " , " ){
-                converted = converted.substring(0, converted.length - 3) + " ) external payable";
+                generatedInterface = generatedInterface.substring(0, generatedInterface.length - 3) + " ) external payable";
               }else{
-                converted = converted + " ) external payable";
+                generatedInterface = generatedInterface +  " ) external payable";
               }
               if(data[a].outputs.length > 0){
-                converted = converted + " returns( ";
+                generatedInterface = generatedInterface +  " returns( ";
                 for(let c = 0; c < data[a].outputs.length; c++){
                   if(data[a].outputs[c].name !== "" ){
-                    converted = converted + data[a].outputs[c].type + " " + data[a].outputs[c].name + " , ";
+                    generatedInterface = generatedInterface + data[a].outputs[c].type + " " + data[a].outputs[c].name + " , ";
                   }else{
-                    converted = converted + data[a].outputs[c].type + " , ";
+                    generatedInterface = generatedInterface + data[a].outputs[c].type + " , ";
                   }
                 }
-                const endChar2 = converted.slice(-3);
+                const endChar2 = generatedInterface.slice(-3);
                 if(endChar2 === " , " ){
-                  converted = converted.substring(0, converted.length - 3) + " )";
+                  generatedInterface = generatedInterface.substring(0, generatedInterface.length - 3) + " )";
                 }else{
-                  converted = converted + " )";
+                  generatedInterface = generatedInterface +  " )";
                 }
               }
-              converted = converted + ";";
+              generatedInterface = generatedInterface +  ";";
             }
           }
         }
 
-        converted = converted + `
+        converted = converted +  generatedInterface;
+        converted = converted +  `
 }`;
         converted = converted.replace(/ string /g, " string memory " );
         converted = converted.replace(/ bytes /g, " bytes memory " );
