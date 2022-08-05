@@ -12,8 +12,15 @@ export class AppComponent {
 
   convert(){
     if(this.inputAbi.valid){
+      const interfaceArray = {
+        name: null,
+        type: null,
+        datatype: null
+      };
+
       let correctJson = true;
       let data;
+      let interfaces: any[] = [];
       let converted = `// SPDX-License-Identifier: none
 
 pragma solidity ^0.8.0;
@@ -29,15 +36,51 @@ pragma solidity ^0.8.0;
         let generatedInterface = `
 interface generatedInterface{`
         for(let a = 0; a < data.length; a++){
+          console.log(data[a])
           if(data[a].type === 'function'){
-            console.log(data[a])
             if(data[a].stateMutability === 'view'){
               generatedInterface = generatedInterface +  `
   function ` + data[a].name + "( ";
               for(let b = 0; b < data[a].inputs.length; b++){
                 if(data[a].inputs[b].name !== "" ){
+                  if(data[a].inputs[b].type === "tuple"){
+                    // let datas = interfaceArray;
+                    let names = (data[a].inputs[b].internalType + '').toString();
+                    console.log(names)
+                    const splitter = names.split(' ');
+                    console.log(splitter)
+                    const splitter2 = splitter[1].split(".");
+                    console.log(splitter2)
+
+                    let pushdata = {
+                      interface: splitter2[0],
+                      name: splitter2[1],
+                      type: splitter[0],
+                      datatype: data[a].inputs[b].components
+                    }
+
+                    interfaces.push(pushdata);
+                  }
                   generatedInterface = generatedInterface+ data[a].inputs[b].type + " " + data[a].inputs[b].name + " , ";
                 }else{
+                  if(data[a].inputs[b].type === "tuple"){
+                    // let datas = interfaceArray;
+                    let names = (data[a].inputs[b].internalType + '').toString();
+                    console.log(names)
+                    const splitter = names.split(' ');
+                    console.log(splitter)
+                    const splitter2 = splitter[1].split(".");
+                    console.log(splitter2)
+
+                    let pushdata = {
+                      interface: splitter2[0],
+                      name: splitter2[1],
+                      type: splitter[0],
+                      datatype: data[a].inputs[b].components
+                    }
+
+                    interfaces.push(pushdata);
+                  }
                   generatedInterface = generatedInterface+ data[a].inputs[b].type + " , ";
                 }
               }
@@ -66,8 +109,44 @@ interface generatedInterface{`
   function ` + data[a].name + "( ";
               for(let b = 0; b < data[a].inputs.length; b++){
                 if(data[a].inputs[b].name !== "" ){
+                  if(data[a].inputs[b].type === "tuple"){
+                    // let datas = interfaceArray;
+                    let names = (data[a].inputs[b].internalType + '').toString();
+                    console.log(names)
+                    const splitter = names.split(' ');
+                    console.log(splitter)
+                    const splitter2 = splitter[1].split(".");
+                    console.log(splitter2)
+
+                    let pushdata = {
+                      interface: splitter2[0],
+                      name: splitter2[1],
+                      type: splitter[0],
+                      datatype: data[a].inputs[b].components
+                    }
+
+                    interfaces.push(pushdata);
+                  }
                   generatedInterface = generatedInterface+ data[a].inputs[b].type + " " + data[a].inputs[b].name + " , ";
                 }else{
+                  if(data[a].inputs[b].type === "tuple"){
+                    // let datas = interfaceArray;
+                    let names = (data[a].inputs[b].internalType + '').toString();
+                    console.log(names)
+                    const splitter = names.split(' ');
+                    console.log(splitter)
+                    const splitter2 = splitter[1].split(".");
+                    console.log(splitter2)
+
+                    let pushdata = {
+                      interface: splitter2[0],
+                      name: splitter2[1],
+                      type: splitter[0],
+                      datatype: data[a].inputs[b].components
+                    }
+
+                    interfaces.push(pushdata);
+                  }
                   generatedInterface = generatedInterface+ data[a].inputs[b].type + " , ";
                 }
               }
@@ -75,7 +154,7 @@ interface generatedInterface{`
               if(endChar === " , " ){
                 generatedInterface = generatedInterface.substring(0, generatedInterface.length - 3) + " ) external pure returns( ";
               }else{
-                generatedInterface = generatedInterface +  " ) external view returns( ";
+                generatedInterface = generatedInterface +  " ) external pure returns( ";
               }
               for(let c = 0; c < data[a].outputs.length; c++){
                 if(data[a].outputs[c].name !== "" ){
@@ -96,8 +175,44 @@ interface generatedInterface{`
   function ` + data[a].name + "( ";
               for(let b = 0; b < data[a].inputs.length; b++){
                 if(data[a].inputs[b].name !== "" ){
+                  if(data[a].inputs[b].type === "tuple"){
+                    // let datas = interfaceArray;
+                    let names = (data[a].inputs[b].internalType + '').toString();
+                    console.log(names)
+                    const splitter = names.split(' ');
+                    console.log(splitter)
+                    const splitter2 = splitter[1].split(".");
+                    console.log(splitter2)
+
+                    let pushdata = {
+                      interface: splitter2[0],
+                      name: splitter2[1],
+                      type: splitter[0],
+                      datatype: data[a].inputs[b].components
+                    }
+
+                    interfaces.push(pushdata);
+                  }
                   generatedInterface = generatedInterface+ data[a].inputs[b].type + " " + data[a].inputs[b].name + " , ";
                 }else{
+                  if(data[a].inputs[b].type === "tuple"){
+                    // let datas = interfaceArray;
+                    let names = (data[a].inputs[b].internalType + '').toString();
+                    console.log(names)
+                    const splitter = names.split(' ');
+                    console.log(splitter)
+                    const splitter2 = splitter[1].split(".");
+                    console.log(splitter2)
+
+                    let pushdata = {
+                      interface: splitter2[0],
+                      name: splitter2[1],
+                      type: splitter[0],
+                      datatype: data[a].inputs[b].components
+                    }
+
+                    interfaces.push(pushdata);
+                  }
                   generatedInterface = generatedInterface+ data[a].inputs[b].type + " , ";
                 }
               }
@@ -130,8 +245,44 @@ interface generatedInterface{`
   function ` + data[a].name + "( ";
               for(let b = 0; b < data[a].inputs.length; b++){
                 if(data[a].inputs[b].name !== "" ){
+                  if(data[a].inputs[b].type === "tuple"){
+                    // let datas = interfaceArray;
+                    let names = (data[a].inputs[b].internalType + '').toString();
+                    console.log(names)
+                    const splitter = names.split(' ');
+                    console.log(splitter)
+                    const splitter2 = splitter[1].split(".");
+                    console.log(splitter2)
+
+                    let pushdata = {
+                      interface: splitter2[0],
+                      name: splitter2[1],
+                      type: splitter[0],
+                      datatype: data[a].inputs[b].components
+                    }
+
+                    interfaces.push(pushdata);
+                  }
                   generatedInterface = generatedInterface+ data[a].inputs[b].type + " " + data[a].inputs[b].name + " , ";
                 }else{
+                  if(data[a].inputs[b].type === "tuple"){
+                    // let datas = interfaceArray;
+                    let names = (data[a].inputs[b].internalType + '').toString();
+                    console.log(names)
+                    const splitter = names.split(' ');
+                    console.log(splitter)
+                    const splitter2 = splitter[1].split(".");
+                    console.log(splitter2)
+
+                    let pushdata = {
+                      interface: splitter2[0],
+                      name: splitter2[1],
+                      type: splitter[0],
+                      datatype: data[a].inputs[b].components
+                    }
+
+                    interfaces.push(pushdata);
+                  }
                   generatedInterface = generatedInterface+ data[a].inputs[b].type + " , ";
                 }
               }
@@ -168,8 +319,12 @@ interface generatedInterface{`
         converted = converted.replace(/ string /g, " string memory " );
         converted = converted.replace(/ bytes /g, " bytes memory " );
         converted = converted.replace("[]", "[] memory" );
+        converted = converted.replace(/\( /g, "(" );
+        converted = converted.replace(/ \)/g, ")" );
+        converted = converted.replace(/ , /g, "," );
 
         this.interfaceResult.setValue(converted);
+        console.log(interfaces);
       }
     }else{
       console.log("Please input something" )
