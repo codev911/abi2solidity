@@ -318,7 +318,7 @@ interface generatedInterface{`
 }`;
         converted = converted.replace(/ string /g, " string memory " );
         converted = converted.replace(/ bytes /g, " bytes memory " );
-        converted = converted.replace("[]", "[] memory" );
+        converted = converted.replace(/\] /, "] memory" );
         converted = converted.replace(/\( /g, "(" );
         converted = converted.replace(/ \)/g, ")" );
         converted = converted.replace(/ , /g, "," );
